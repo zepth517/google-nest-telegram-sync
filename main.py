@@ -38,6 +38,7 @@ async def main():
     tes = TelegramEventsSync(
         telegram_bot_token=TELEGRAM_BOT_TOKEN, 
         telegram_channel_id=TELEGRAM_CHANNEL_ID, 
+        timezone=TIMEZONE,
         nest_camera_devices=nest_camera_devices
     )
 

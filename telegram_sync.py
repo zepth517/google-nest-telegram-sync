@@ -12,9 +12,10 @@ class TelegramEventsSync(object):
     
     TELEGRAM_TIME_FORMAT = '%H:%M:%S %d/%m/%Y'
     
-    def __init__(self, telegram_bot_token, telegram_channel_id, nest_camera_devices) -> None:
+    def __init__(self, telegram_bot_token, telegram_channel_id, timezone, nest_camera_devices) -> None:
         self._telegram_bot = Bot(token=telegram_bot_token)
         self._telegram_channel_id = telegram_channel_id
+        self._timezone = timezone
         self._nest_camera_devices = nest_camera_devices
  
         self._recent_events = set()
@@ -23,7 +24,7 @@ class TelegramEventsSync(object):
     
         logger.info(f"Syncing: {nest_device.device_id}")
         all_recent_camera_events : list[CameraEvent] = nest_device.get_events(
-            end_time = pytz.timezone(TIMEZONE).localize(datetime.datetime.now()),
+            end_time = pytz.timezone(self._timezone).localize(datetime.datetime.now()),
             duration_minutes=3 * 60 # Maximum saved events is 3 hours (free plan)
         )
 
@@ -40,7 +41,7 @@ class TelegramEventsSync(object):
             video_data = nest_device.download_camera_event(camera_event_obj)
             video_io = BytesIO(video_data)
 
-            event_local_time = camera_event_obj.start_time.astimezone(pytz.timezone(TIMEZONE))
+            event_local_time = camera_event_obj.start_time.astimezone(pytz.timezone(self._timezone))
             video_media = InputMediaVideo(
                 media=video_io, 
                 caption=f"{nest_device.device_name} - {event_local_time.strftime(self.TELEGRAM_TIME_FORMAT)}"
