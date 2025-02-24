@@ -25,30 +25,32 @@ This module is for personal use only. Using it is at your own risk!
 ## Usage:
 
 * Start with:
-```bash
-  pip install -r requirements.txt
-```
+  ```bash
+    pip install -r requirements.txt
+  ```
 
 * Get a Google "Master Token", you may consider to use a Google One-Time Password for that:
 
-```bash
-  docker run --rm -it breph/ha-google-home_get-token
-```
+  ```bash
+    docker run --rm -it breph/ha-google-home_get-token
+  ```
 
-* Create a .env file in the following format
+* Create a .env file in the following format.
 
-```dotenv
-GOOGLE_MASTER_TOKEN="aas_..."
-GOOGLE_USERNAME="youremailaddress@gmail.com"
-TELEGRAM_BOT_TOKEN="token..."
-TELEGRAM_CHANNEL_ID="-100..."
-```
+  Use the https://t.me/username_to_id_bot to get the channel id for private channels
+  
+  ```dotenv
+  GOOGLE_MASTER_TOKEN="aas_..."
+  GOOGLE_USERNAME="youremailaddress@gmail.com"
+  TELEGRAM_BOT_TOKEN="token..."
+  TELEGRAM_CHANNEL_ID="-100..."
+  ```
 
 * Then run:
 
-```bash
-  python3 main.py
-```
+  ```bash
+    python3 main.py
+  ```
 
 
 ## Example:
