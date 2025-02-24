@@ -17,7 +17,7 @@ class NestDoorbellDevice(object):
         self._device_id = device_id
         self._device_name = device_name
 
-    def __parse_events(self, events_xml):
+    def __parse_events(self, events_xml):        
         root = ET.fromstring(events_xml)
         periods = root.findall(".//{urn:mpeg:dash:schema:mpd:2011}Period")
         return [

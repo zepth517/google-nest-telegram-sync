@@ -37,13 +37,16 @@ This module is for personal use only. Using it is at your own risk!
 
 * Create a .env file in the following format.
 
-  Use the https://t.me/username_to_id_bot to get the channel id for private channels
+  Use the https://t.me/username_to_id_bot to get the channel id for private channels.
+  
+  All available timezones can be found [here](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
   
   ```dotenv
   GOOGLE_MASTER_TOKEN="aas_..."
   GOOGLE_USERNAME="youremailaddress@gmail.com"
   TELEGRAM_BOT_TOKEN="token..."
   TELEGRAM_CHANNEL_ID="-100..."
+  TIMEZONE="US/Central"
   ```
 
 * Then run:
