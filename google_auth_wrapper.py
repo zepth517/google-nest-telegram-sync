@@ -1,6 +1,7 @@
 import datetime
 import requests
 from nest_api import NestDoorbellDevice 
+from typing import Optional
 
 from tools import logger
 import glocaltokens.client
@@ -11,7 +12,8 @@ class GLocalAuthenticationTokensMultiService(glocaltokens.client.GLocalAuthentic
 
         self._last_access_token_service = None
     
-    def get_access_token(self, service=glocaltokens.client.ACCESS_TOKEN_SERVICE) -> str | None:
+
+    def get_access_token(self, service=glocaltokens.client.ACCESS_TOKEN_SERVICE) -> Optional[str]:
         """Return existing or fetch access_token"""
         if (
             self.access_token is None

@@ -25,8 +25,8 @@ class TelegramEventsSync(object):
     
         logger.info(f"Syncing: {nest_device.device_id}")
         all_recent_camera_events : list[CameraEvent] = nest_device.get_events(
-            end_time = pytz.timezone("Israel").localize(datetime.datetime.now()),
-            duration_minutes=3 * 60 # This is the maxmimum time Google is saving my videos
+            end_time = pytz.timezone("Europe/Paris").localize(datetime.datetime.now()),
+            duration_minutes=3 * 60 # This is the maximum time Google is saving my videos
         )
 
         logger.info(f"[{nest_device.device_id}] Received {len(all_recent_camera_events)} camera events")
