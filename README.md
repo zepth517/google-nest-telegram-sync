@@ -23,11 +23,11 @@ This project is a fork of [@TamiMa's repository](https://github.com/TamirMa/goog
   ```bash
     docker run --rm -it breph/ha-google-home_get-token
   ```
-  > [!TIP]  
-  > The image will prompt you to provide an app password, which you can retrieve by creating a new app on your [Google account app passwords page](https://myaccount.google.com/apppasswords).
+> [!TIP]  
+> The image will prompt you to provide an app password, which you can retrieve by creating a new app on your [Google account app passwords page](https://myaccount.google.com/apppasswords).
 
-  > [!WARNING]  
-  > The app password is NOT your Google account's password. It is a unique password generated for the app you are creating.
+> [!WARNING]  
+> The app password is NOT your Google account's password. It is a unique password generated for the app you are creating.
 
 - Create a .env file with the following contents:
 
@@ -39,12 +39,12 @@ This project is a fork of [@TamiMa's repository](https://github.com/TamirMa/goog
   TIMEZONE="US/Central"
   ```
 
-  > [!NOTE]
-  > To retrieve your telegram bot token, create your telegram bot using [@BotFather](https://t.me/botfather).
-  > 
-  > If the channel you want to sync the videos to is private, use [@username_to_id_bot](https://t.me/username_to_id_bot) to get the channel's ID. Public channels expose their id in the URL, making this step unnecessary.
-  > 
-  > All available timezones can be found [in this gist by heyalexej](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
+> [!NOTE]
+> To retrieve your telegram bot token, create your telegram bot using [@BotFather](https://t.me/botfather).
+> 
+> If the channel you want to sync the videos to is private, use [@username_to_id_bot](https://t.me/username_to_id_bot) to get the channel's ID. Public channels expose their id in the URL, making this step unnecessary.
+> 
+> All available timezones can be found [in this gist by heyalexej](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
   
 
 - Finally, run:
