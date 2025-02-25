@@ -1,46 +1,31 @@
 
-# Google Nest Camera Videos <--> Telegram Channel
+# Google Nest camera clips - Telegram channel sync
 
-<a href="https://buymeacoffee.com/tamirmayer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+This project is a fork of [@TamiMa's repository](https://github.com/TamirMa/google-nest-telegram-sync), implementing support for python 3.13, fixing some scheduling bugs, as well as exposing the timezone as a configuration option.
 
+## Features
 
-This is a module created after a joyfull project I've researched. 
-You can find the full story [here](https://medium.com/@tamirmayer/google-nest-camera-internal-api-fdf9dc3ce167)
-
-If you wan't to download your Google Home Nest Cameras videos locally (And tired of paying the monthly Nest Aware Subscription) - this is the script your are looking for.
-
-I found it no-where else.
-
-Specifically I needed to send the videos to a Telegram Channel, but feel free to do whatever you need with that.
-
-This module is for personal use only. Using it is at your own risk!
-## You Will Be Able To:
-
-- Get your **Google Home devices using HomeGraph**
-- Retrieve your recent **Google Nest events**
-- **Download full-quality Google Nest video clips**
-- Send those clips to a Telegram channel you choose
+- Get list of **Google Home devices through HomeGraph**
+- Retrieve recent **Google Nest events**
+- Download **full-quality Google Nest video clips**
+- Send those clips to a Telegram channel
 
 
 ## Usage:
 
-* Start with:
+* Install the required dependencies:
   ```bash
     pip install -r requirements.txt
   ```
 
-* Get a Google "Master Token", you may consider to use a Google One-Time Password for that:
+* Get a Google "Master Token", using the [ha-google-home_get-token](https://hub.docker.com/r/breph/ha-google-home_get-token) docker image.
 
   ```bash
     docker run --rm -it breph/ha-google-home_get-token
   ```
 
-* Create a .env file in the following format.
+* Create a .env file with the following contents:
 
-  Use the https://t.me/username_to_id_bot to get the channel id for private channels.
-  
-  All available timezones can be found [here](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
-  
   ```dotenv
   GOOGLE_MASTER_TOKEN="aas_..."
   GOOGLE_USERNAME="youremailaddress@gmail.com"
@@ -49,42 +34,20 @@ This module is for personal use only. Using it is at your own risk!
   TIMEZONE="US/Central"
   ```
 
+  Use [@username_to_id_bot](https://t.me/username_to_id_bot) to get the channel id of a private channel.
+  
+  All available timezones can be found [here](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
+  
+
 * Then run:
 
   ```bash
     python3 main.py
   ```
 
-
-## Example:
-
-```javascript
-from google_auth_wrapper import GoogleConnection
-
-google_connection = GoogleConnection(
-    GOOGLE_MASTER_TOKEN, 
-    GOOGLE_USERNAME
-)
-
-nest_camera_devices = google_connection.get_nest_camera_devices()
-
-for nest_device in self._nest_camera_devices:
-    # Get all the events
-    events = nest_device.get_events(
-            end_time = pytz.timezone("US/Central").localize(datetime.datetime.now()),
-            duration_minutes=3 * 60 # 3 Hours
-        )
-
-    for event in events:
-        # Returns the bytes of the .mp4 video
-        video_data = nest_device.download_camera_event(event)
-        
-```
-
-<a href="https://buymeacoffee.com/tamirmayer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
-
 ## Credits:
 
-Much credits for the authors of the [**glocaltokens**](https://github.com/leikoilja/glocaltokens) module
-
-Thanks also for the authors of the docker [**ha-google-home_get-token**](https://hub.docker.com/r/breph/ha-google-home_get-token)
+- [original repository](https://github.com/TamirMa/google-nest-telegram-sync) from which this project is forked
+- [glocaltokens](https://github.com/leikoilja/glocaltokens) for the Google Home Graph API
+- [ha-google-home_get-token](https://hub.docker.com/r/breph/ha-google-home_get-token) for the Google Master Token retrieval process
+- [python-telegram-bot](https://python-telegram-bot.org/) for the Telegram API
