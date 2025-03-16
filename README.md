@@ -1,7 +1,7 @@
 
 # Google Nest camera clips - Telegram channel sync
 
-This project is a fork of [@TamiMa's repository](https://github.com/TamirMa/google-nest-telegram-sync), implementing support for python 3.13, fixing some scheduling bugs, as well as exposing the timezone as a configuration option.
+This project is a fork of [@TamirMa's repository](https://github.com/TamirMa/google-nest-telegram-sync), implementing support for python 3.13, fixing some scheduling bugs, as well as exposing the timezone as a configuration option.
 
 ## Features
 
