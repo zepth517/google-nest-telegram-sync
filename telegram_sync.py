@@ -43,7 +43,9 @@ class TelegramEventsSync(object):
 
             event_local_time = camera_event_obj.start_time.astimezone(pytz.timezone(self._timezone))
             video_media = InputMediaVideo(
-                media=video_io, 
+                media=video_io,
+                width=1920,
+                height=1080,
                 caption=f"{nest_device.device_name} - {event_local_time.strftime(self.TELEGRAM_TIME_FORMAT)}"
             )
             
