@@ -5,23 +5,25 @@ from models import CameraEvent
 from io import BytesIO
 import pytz
 import datetime
+import time
 
 from telegram import Bot, InputMediaVideo
+from telegram.error import TimedOut
+
 
 class TelegramEventsSync(object):
-    
+
     TELEGRAM_TIME_FORMAT = '%H:%M:%S %d/%m/%Y'
-    
+
     def __init__(self, telegram_bot_token, telegram_channel_id, timezone, nest_camera_devices) -> None:
         self._telegram_bot = Bot(token=telegram_bot_token)
         self._telegram_channel_id = telegram_channel_id
         self._timezone = timezone
         self._nest_camera_devices = nest_camera_devices
- 
         self._recent_events = set()
 
     async def sync_single_nest_camera(self, nest_device : NestDoorbellDevice):
-    
+
         logger.info(f"Syncing: {nest_device.device_id}")
         all_recent_camera_events : list[CameraEvent] = nest_device.get_events(
             end_time = pytz.timezone(self._timezone).localize(datetime.datetime.now()),
@@ -48,15 +50,25 @@ class TelegramEventsSync(object):
                 height=1080,
                 caption=f"{nest_device.device_name} - {event_local_time.strftime(self.TELEGRAM_TIME_FORMAT)}"
             )
-            
-            await self._telegram_bot.send_media_group(
-                chat_id=self._telegram_channel_id, 
-                media=[video_media],
-                disable_notification=True,
-            )
-            logger.debug("Sent clip successfully")
 
-            self._recent_events.add(camera_event_obj.event_id)
+            try:
+                logger.info('sending clip to telegram ...')
+
+                await self._telegram_bot.send_media_group(
+                    chat_id=self._telegram_channel_id,
+                    media=[video_media],
+                    disable_notification=True,
+                    #read_timeout=20,
+                    #write_timeout=20
+                )
+                logger.info("sent clip successfully ...")
+                self._recent_events.add(camera_event_obj.event_id)
+
+            except TimedOut:
+                logger.error("failed to send the clip ...")
+
+            logger.info("sleeping for 15 seconds ...")
+            time.sleep(15)
 
         downloaded_and_sent = len(all_recent_camera_events) - skipped
         logger.info(f"[{nest_device.device_id}] Downloaded and sent: {downloaded_and_sent}, skipped (already sent): {skipped}")
