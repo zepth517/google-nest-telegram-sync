@@ -23,7 +23,7 @@ class CameraEvent(BaseModel):
     def set_end_time(cls, v, values, **kwargs):
         """Set the eggs field based upon a spam value."""
         return values.get('start_time')+ values.get('duration')
-    
+
     @property
     def event_id(self):
         """Set the eggs field based upon a spam value."""
